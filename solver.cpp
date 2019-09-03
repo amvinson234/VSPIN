@@ -10,16 +10,16 @@ std::pair<double,double> Planet::integrate(double t, double h, double y, double 
     double k1,k2,k3,k4,l1,l2,l3,l4;
 
     k1 = y_dot;
-    l1 = func_gdd(t, y, y_dot, mean_motion_dot(t));
+    l1 = func_gdd(t, y, y_dot);
     k2 = y_dot + h / 2. * l1;
-    l2 = func_gdd(t, y + h/2. * k1 , y_dot + h/2. * l1, mean_motion_dot(t + h / 2.));
+    l2 = func_gdd(t + h/2., y + h/2. * k1 , y_dot + h/2. * l1);
     k3 = y_dot + h / 2. * l2;
-    l3 = func_gdd(t, y + h/2. * k2 , y_dot + h/2. * l2, mean_motion_dot(t + h / 2.));
+    l3 = func_gdd(t + h/2., y + h/2. * k2 , y_dot + h/2. * l2);
     k4 = y_dot + h * l3;
-    l4 = func_gdd(t, y + h * k3 , y_dot + h * l3, mean_motion_dot(t + h));
+    l4 = func_gdd(t + h, y + h * k3 , y_dot + h * l3);
 
-    y = y + h / 6. * (k1 + 2 * k2 + 2 * k3 + k4);
-    y_dot = y_dot + h / 6. * (l1 + 2 * l2 + 2 * l3 + l4);
+    y = y + h / 6. * (k1 + 2. * k2 + 2. * k3 + k4);
+    y_dot = y_dot + h / 6. * (l1 + 2. * l2 + 2. * l3 + l4);
 
     return std::make_pair(y,y_dot);
 }
@@ -61,12 +61,12 @@ void Planet::solve()
         }
         else //convergence criterion reached. updated new time and double next time step.
         {
-            time_step *= 2;
+            time_step *= 2.;
             time += time_step;
         }
 
 
-    }while(abs(delta_gamma) > abs(epsilon * gamma)); // && time_step > time_step_max);
+    }while(abs(delta_gamma) > abs(epsilon * gamma) && time_step > _min_dt);
 
     //Refine estimates:
     gamma = gamma + delta_gamma / 15.;
@@ -80,19 +80,10 @@ void Planet::solve()
 }
 
 //functional form of double derivative of gamma.
-double Planet::func_gdd(double time, double x, double x_dot, double n_dot)
+double Planet::func_gdd(double t, double x, double x_dot)
 {
-    /****************************************
-     * Place holder for omega_s calculation *
-     ****************************************/
-    double omega_s = 1.0;
-    double damping = damp(this,MSUN); /**Msun is a PLACEHOLDER*/
-    return -1/2. * omega_s * omega_s * sin(2*x) - n_dot - damping * x_dot; //x and x_dot represent gamma and gamma_dot, respectively
-}
-
-void Planet::update_time_step()
-{
-
+    double damping = damp(this,_mass_star);
+    return -1/2. * omega_s(t) * omega_s(t) * sin(2*x) - mean_motion_dot(t) - damping * x_dot; //x and x_dot represent gamma and gamma_dot, respectively
 }
 
 double Planet::mean_motion(double t)
@@ -109,4 +100,9 @@ double Planet::mean_motion_dot(double t)
      * Need to put stuff in here. Placeholder for now.                  *
      ********************************************************************/
     return 0;
+}
+
+double Planet::omega_s(double t)
+{
+    return mean_motion(t) * sqrt(3*abs(H(0,ecc) * _B_A_C));
 }

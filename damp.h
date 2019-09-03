@@ -2,6 +2,8 @@
 #define DAMP_H_INCLUDED
 
 #include "planet.h"
+#include <iostream>
+
 //double damp(double M_star, double plan_radius, double semi_major, double ecc, double M_plan, double mean_motion, double gdot, double mu, double alpha, double tau_M, double tau_A);
 double damp(Planet *planet, double M_star);
 double H(int p, double ecc);
