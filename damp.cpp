@@ -23,7 +23,7 @@ double damp(Planet *planet)
         //Need to give values for mu, alpha, taus...
         //perhaps taken from a param file, and/or as an input in the damp() function
         //sum += pow(G_20q,2) * K_c(chi_220q,plan_radius,M_plan,mu,alpha,tau_M,tau_A) * sign_omega_220q;
-        sum += pow(G_20q,2) * K_c(planet,chi_220q) * sign_omega_220q;
+        sum += std::pow(G_20q,2) * K_c(planet,chi_220q) * sign_omega_220q;
     }
 
     double plan_radius = planet->get_radius();
@@ -81,11 +81,11 @@ double K_c(Planet *planet, double chi)
     double tau_M = planet->get_tau_M();
     double mu = planet->get_mu();
 
-    double lambda_2 = 4 * PI * (2 * 2 * 2 + 4 * 2 + 3) * pow(radius, 4) * mu / ( 3 * 2 * G * M_plan *M_plan );
-    double real_part = chi + pow(chi,1 - alpha) * pow(tau_A, -alpha) * cos(alpha * PI / 2) * tgamma(1+alpha);
-    double imaginary_part = -pow(tau_M,-1) - pow(chi,1-alpha) * pow(tau_A,-alpha) * sin(alpha*PI/2) * tgamma(1+alpha);
+    double lambda_2 = 4 * PI * (2 * 2 * 2 + 4 * 2 + 3) * std::pow(radius, 4) * mu / ( 3 * 2 * G * M_plan *M_plan );
+    double real_part = chi + std::pow(chi,1 - alpha) * std::pow(tau_A, -alpha) * std::cos(alpha * PI / 2) * std::tgamma(1+alpha);
+    double imaginary_part = - std::pow(tau_M,-1) - std::pow(chi,1-alpha) * std::pow(tau_A,-alpha) * std::sin(alpha*PI/2) * std::tgamma(1+alpha);
 
-    double K = -3 / 2.0 * lambda_2 * chi * imaginary_part / (pow(real_part + lambda_2 * chi, 2) + pow(imaginary_part,2) );
+    double K = -3 / 2.0 * lambda_2 * chi * imaginary_part / (std::pow(real_part + lambda_2 * chi, 2) + std::pow(imaginary_part,2) );
     return K;
 }
 

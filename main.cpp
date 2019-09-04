@@ -7,15 +7,8 @@
 int main()
 {
 
-    double damping;
-
-    double M_star = MSUN;
     double plan_radius = REARTH;
-    double semi_major = AEARTH;
-    double ecc = 0.02;
     double M_plan = MEARTH;
-    double mean_motion = 2 * PI / (365*24*3600.);
-    double gdot = 0.0;
     double mu = 0.8 * pow(10,11);
     double alpha = 0.2;
     double tau_M = 500 * 365 * 24 * 3600.;

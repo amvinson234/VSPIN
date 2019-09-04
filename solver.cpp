@@ -45,9 +45,9 @@ void Planet::solve()
         gamma = candidate_s.first;
         gamma_dot = candidate_s.second;
 
-        /********************************************************************************
-        * Stepsize adjustments
-        ********************************************************************************/
+        /*******************************************************************************
+         * Stepsize adjustments                                                        *
+         *******************************************************************************/
 
         double delta_gamma = gamma - gamma_b;
         double delta_gamma_dot = gamma_dot - gamma_dot_b;
