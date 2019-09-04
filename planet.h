@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include "constants.h"
+#include "spline.h"
+#include <fstream>
 
 class Planet
 {
@@ -61,10 +63,18 @@ private:
     double time;
     double time_step;
 
+    std::vector<double> spline_b;
+    std::vector<double> spline_c;
+    std::vector<double> spline_d;
+    std::vector<double> spline_mm;
+    std::vector<double> spline_time;
+    double spline_delta_t;
+
+
     double func_gdd(double t, double x, double x_dot);
 
     std::pair<double,double> integrate(double t, double h, double y, double y_dot); //integrates forward from time, t, to one timestep, t + h. returns pair: first = gamma, second = gamma_dot
-    void update_orbit();
+    void read_orbit(std::string file_name);
 };
 
 #endif // PLANET_H_INCLUDED

@@ -16,15 +16,22 @@ Planet::Planet(std::string name, double radius, double mass, double B_A_C, doubl
     _moi_coeff = 2.0/5.0;
 
     gamma = 0.;
-    gamma_dot = 2 * PI / (24.0 * 3600.0);
+    gamma_dot = 2 * PI; //rad per year
+
+    /*************
+    Read in orbit
+    *************/
+
+    read_orbit(name + "_avg_longg_multisim13.txt");
+
 
     //initialize to Earth values if other planet details not specified
     semi_major = AEARTH;
-    _mean_motion = 2 * PI / 365. / 24. / 3600.;
+    _mean_motion = 2 * PI; //rad per year
     ecc = 0.0167;
 
-    time = 0.;
-    time_step = 365. * 24. * 3600.;
+    time = 0.; //years
+    time_step = 1.; //years
 
     _min_dt = 0.;
     _max_dt = INFINITY;
@@ -88,4 +95,47 @@ double Planet::get_tau_A()
 double Planet::get_time()
 {
     return time;
+}
+
+void Planet::read_orbit(std::string input_file_name)
+{
+    std::ifstream input(input_file_name.c_str());
+    std::string header_trash;
+    std::getline(input, header_trash);
+    int begin_line = sim_loop(input_file_name);
+
+    for(int ctr = 0; ctr < begin_line - 1; ctr++)
+    {
+        std::string line;
+        std::getline(input,line);
+    }
+
+    double t, mm, e, p;
+    std::vector<double> input_time, input_mm, input_ecc, input_peri;
+    while(input >> t)
+    {
+        input >> mm >> e >> p;
+        input_time.push_back(t);
+        input_mm.push_back(mm);
+        input_ecc.push_back(e);
+        input_peri.push_back(p);
+    }
+
+    for(int i = 0; i < input_time.size(); i++) input_time[i] = input_time[i] - input_time[0]; //set initial time to 0.
+
+    //Following lines for for smooth stitch back to front. ensures that back of vectors equal its front.
+
+    input_time.push_back(t+input_time[1]-input_time[0]);
+    input_mm.push_back(input_mm[1]);
+    input_ecc.push_back(input_ecc[1]);
+    input_peri.push_back(input_peri[1]);
+
+    input.close();
+
+    spline_time = input_time;
+    spline_mm = input_mm;
+    spline_delta_t = (spline_time[spline_time.size()-1] - spline_time[0]) / spline_time.size();
+
+    spline(spline_time, spline_mm, spline_b, spline_c, spline_d);
+
 }

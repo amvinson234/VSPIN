@@ -29,7 +29,9 @@ double damp(Planet *planet)
     double plan_radius = planet->get_radius();
     double semi_major = planet->get_semi_major();
 
-    return (3/2.0 * G * M_star * M_star * std::pow(plan_radius,5) / std::pow(semi_major,6)) * sum;
+    double sec_per_year = 365. * 24. * 3600.; //for conversion of G to time units of years
+
+    return (3/2.0 * G * sec_per_year * sec_per_year * M_star * M_star * std::pow(plan_radius,5) / std::pow(semi_major,6)) * sum;
     //consider making function just return the sum part, so don't have to keep re-calculating the constant coefficient in front.
 }
 

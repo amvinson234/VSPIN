@@ -1,5 +1,6 @@
 #include "planet.h"
 #include "damp.h"
+#include "spline.h"
 #include <cmath>
 
 
@@ -88,17 +89,23 @@ double Planet::func_gdd(double t, double x, double x_dot)
 double Planet::mean_motion(double t)
 {
     /********************************************************************
-     * Need to put stuff in here. Placeholder for now.                  *
+     * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
-    return 2*PI / 365. /24. /3600.;
+    int i = int(time / spline_delta_t);
+    return spline_inter(spline_mm[i],spline_b[i],spline_c[i],spline_d[i],t,spline_time[i]);
+
+    //return 2*PI;
 }
 
 double Planet::mean_motion_dot(double t)
 {
     /********************************************************************
-     * Need to put stuff in here. Placeholder for now.                  *
+     * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
-    return 0;
+    int i = int(time / spline_delta_t);
+    return spline_inter_deriv(spline_b[i],spline_c[i],spline_d[i],t,spline_time[i]);
+
+    //return 0;
 }
 
 double Planet::omega_s(double t)
