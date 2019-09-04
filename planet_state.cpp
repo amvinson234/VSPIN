@@ -13,9 +13,10 @@ Planet::Planet(std::string name, double radius, double mass, double B_A_C, doubl
     _tau_M = tau_M;
     _tau_A = tau_A;
     _mass_star = mass_star;
+    _moi_coeff = 2.0/5.0;
 
     gamma = 0.;
-    gamma_dot = 0.;
+    gamma_dot = 2 * PI / (24.0 * 3600.0);
 
     //initialize to Earth values if other planet details not specified
     semi_major = AEARTH;
@@ -34,6 +35,10 @@ std::string Planet::name()
     return _name;
 }
 
+double Planet::get_stellar_mass()
+{
+    return _mass_star;
+}
 double Planet::get_gamma()
 {
     return gamma;

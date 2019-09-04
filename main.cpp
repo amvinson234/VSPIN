@@ -25,7 +25,21 @@ int main()
 
     std::string name = "test planet";
     Planet planet(name, plan_radius, M_plan, B_A_C, mu, alpha, tau_M, tau_A, mass_star);
+    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
     planet.solve();
+    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
+    planet.solve();
+    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
+    planet.solve();
+    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
+    planet.solve();
+    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
+    planet.solve();
+    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
+    planet.solve();
+    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
+    planet.solve();
+    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
 
     return 0;
 }

@@ -5,19 +5,20 @@
 
 //"simplified" Efroimsky Torque
 //Taken from Makarov 2012, eqn 10
-double damp(Planet *planet, double M_star)
+double damp(Planet *planet)
 //double damp(double M_star, double plan_radius, double semi_major, double ecc, double M_plan, double mean_motion, double gdot, double mu, double alpha, double tau_M, double tau_A)
 {
     double mean_motion = planet->get_mean_motion();
     double gdot = planet->get_gamma_dot();
     double ecc = planet->get_ecc();
+    double M_star = planet->get_stellar_mass();
 
     double sum = 0;
     for(int q = -1; q < 5; q++)
     {
         double omega_220q = (2+q)*mean_motion - 2*(gdot + mean_motion);
-        int sign_omega_220q = omega_220q / abs(omega_220q);
-        double chi_220q = abs(omega_220q);
+        int sign_omega_220q = omega_220q / std::abs(omega_220q);
+        double chi_220q = std::abs(omega_220q);
         double G_20q = H(q, ecc);
         //Need to give values for mu, alpha, taus...
         //perhaps taken from a param file, and/or as an input in the damp() function
@@ -28,7 +29,7 @@ double damp(Planet *planet, double M_star)
     double plan_radius = planet->get_radius();
     double semi_major = planet->get_semi_major();
 
-    return (3/2.0 * G * M_star * M_star * pow(plan_radius,5) / pow(semi_major,6)) * sum;
+    return (3/2.0 * G * M_star * M_star * std::pow(plan_radius,5) / std::pow(semi_major,6)) * sum;
     //consider making function just return the sum part, so don't have to keep re-calculating the constant coefficient in front.
 }
 
@@ -36,27 +37,27 @@ double H(int q, double ecc)
 {
     if(q == -1)
     {
-        return -1/2 * ecc + 1/16.0 * pow(ecc, 3);
+        return -1.0/2.0 * ecc + 1.0/16.0 * std::pow(ecc, 3);
     }
     else if(q == 0)
     {
-        return 1 - 5/2.0 * pow(ecc,2) + 13/16.0 * pow(ecc,4);
+        return 1.0 - 5/2.0 * std::pow(ecc,2) + 13.0/16.0 * std::pow(ecc,4);
     }
     else if(q == 1)
     {
-        return 7/2.0 * ecc - 123/16.0 * pow(ecc,3);
+        return 7.0/2.0 * ecc - 123.0/16.0 * std::pow(ecc,3);
     }
     else if(q == 2)
     {
-        return 17/2.0 * pow(ecc,2) - 115/6.0 * pow(ecc,4);
+        return 17.0/2.0 * std::pow(ecc,2) - 115.0/6.0 * std::pow(ecc,4);
     }
     else if (q == 3)
     {
-        return 845 / 48.0 * pow(ecc,3);
+        return 845.0 / 48.0 * std::pow(ecc,3);
     }
     else if(q == 4)
     {
-        return 533 / 16.0 * pow(ecc,4);
+        return 533.0 / 16.0 * std::pow(ecc,4);
     }
 
     //else error...

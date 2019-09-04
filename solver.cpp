@@ -2,7 +2,6 @@
 #include "damp.h"
 #include <cmath>
 
-double epsilon = 0.000001; //error criterion
 
 //Runge-Kutta integration
 std::pair<double,double> Planet::integrate(double t, double h, double y, double y_dot)
@@ -53,7 +52,7 @@ void Planet::solve()
         double delta_gamma = gamma - gamma_b;
         double delta_gamma_dot = gamma_dot - gamma_dot_b;
 
-        if(abs(delta_gamma) > abs(epsilon * gamma)) //convergence criterion not reached
+        if(std::abs(delta_gamma) > std::abs(_epsilon * gamma) && time_step > _min_dt) //convergence criterion not reached
         {
             time_step = time_step / 2.0;
             gamma = gamma_init;
@@ -63,10 +62,10 @@ void Planet::solve()
         {
             time_step *= 2.;
             time += time_step;
+            break; //break out of while loop once convergence is reached
         }
 
-
-    }while(abs(delta_gamma) > abs(epsilon * gamma) && time_step > _min_dt);
+    }while(1);
 
     //Refine estimates:
     gamma = gamma + delta_gamma / 15.;
@@ -82,8 +81,8 @@ void Planet::solve()
 //functional form of double derivative of gamma.
 double Planet::func_gdd(double t, double x, double x_dot)
 {
-    double damping = damp(this,_mass_star);
-    return -1/2. * omega_s(t) * omega_s(t) * sin(2*x) - mean_motion_dot(t) - damping * x_dot; //x and x_dot represent gamma and gamma_dot, respectively
+    double damping = damp(this);
+    return -1/2. * omega_s(t) * omega_s(t) * std::sin(2*x) - mean_motion_dot(t) + damping / _moi_coeff / _mass / _radius / _radius; //x and x_dot represent gamma and gamma_dot, respectively
 }
 
 double Planet::mean_motion(double t)
@@ -91,7 +90,7 @@ double Planet::mean_motion(double t)
     /********************************************************************
      * Need to put stuff in here. Placeholder for now.                  *
      ********************************************************************/
-    return 2*PI / 365/24/3600;
+    return 2*PI / 365. /24. /3600.;
 }
 
 double Planet::mean_motion_dot(double t)
@@ -104,5 +103,5 @@ double Planet::mean_motion_dot(double t)
 
 double Planet::omega_s(double t)
 {
-    return mean_motion(t) * sqrt(3*abs(H(0,ecc) * _B_A_C));
+    return mean_motion(t) * std::sqrt(3*std::abs(H(0,ecc) * _B_A_C));
 }

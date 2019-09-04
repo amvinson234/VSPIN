@@ -26,6 +26,7 @@ public:
     double get_tau_M();
     double get_tau_A();
     double get_time();
+    double get_stellar_mass();
 
     double mean_motion(double t); //returns mean motion at arbitrary time
     double mean_motion_dot(double t); //returns time derivative of mean motion at arbitrary time
@@ -44,9 +45,11 @@ private:
     double _mean_motion;
     double _B_A_C; //triaxiality
     double _mass_star;
+    double _moi_coeff; //moment of inertia coefficient
 
     double  _min_dt;
     double  _max_dt;
+    double _epsilon = 1.0e-6; //convergence criterion.
 
 
     double semi_major;
