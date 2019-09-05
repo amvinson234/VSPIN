@@ -13,7 +13,7 @@ int main()
     double alpha = 0.2;
     double tau_M = 500;
     double tau_A = tau_M;
-    double B_A_C = 10e-5;
+    double B_A_C = 10.e-5;
     double mass_star = 0.08 * MSUN;
 
     std::string name = "trappf";
@@ -28,7 +28,7 @@ int main()
     {
         planet.solve();
         output << std::setprecision(8) << planet.get_time() << '\t' << std::setprecision(6) << planet.get_gamma() << '\t' << planet.get_gamma_dot()  << '\t'
-            << planet.get_mean_motion() << '\t' << planet.mean_motion(planet.get_time()) << '\t' << planet.get_ecc() << std::endl;
+        << '\t' << planet.mean_motion(planet.get_time()) << '\t' << planet.eccentricity(planet.get_time()) << std::endl;
     }
 
 

@@ -22,18 +22,15 @@ Planet::Planet(std::string name, double radius, double mass, double B_A_C, doubl
     Read in orbit
     *************/
 
-    read_orbit("tamayo_runs/" + name + "_avg_longg_multisim13.txt");
+    read_orbit("tamayo_runs/" + name + "_avg_longg_multisim18.txt");
 
 
     //initialize to Earth values if other planet details not specified
-    semi_major = AEARTH;
-    _mean_motion = 2 * PI; //rad per year
-    ecc = 0.0167;
-
+    _semi_major = std::pow(4 * PI * PI / std::pow(mean_motion(0),2) * _mass_star / MSUN, 1.0/3.0) * AEARTH;
     time = 0.; //years
     time_step = 1.; //years
 
-    _min_dt = 0.;
+    _min_dt = 2*PI/mean_motion(0);
     _max_dt = INFINITY;
 }
 
@@ -55,17 +52,9 @@ double Planet::get_gamma_dot()
     return gamma_dot;
 }
 
-double Planet::get_ecc()
-{
-    return ecc;
-}
-double Planet::get_mean_motion()
-{
-    return _mean_motion;
-}
 double Planet::get_semi_major()
 {
-    return semi_major;
+    return _semi_major;
 }
 
 double Planet::get_radius()
@@ -135,9 +124,11 @@ void Planet::read_orbit(std::string input_file_name)
     input.close();
 
     spline_time = input_time;
-    spline_mm = input_mm;
+    spline_a_mm = input_mm;
+    spline_a_e = input_ecc;
     spline_delta_t = (spline_time[spline_time.size()-1] - spline_time[0]) / spline_time.size();
 
-    spline(spline_time, spline_mm, spline_b, spline_c, spline_d);
+    spline(spline_time, spline_a_mm, spline_b_mm, spline_c_mm, spline_d_mm);
+    spline(spline_time, spline_a_e, spline_b_e, spline_c_e, spline_d_e);
 
 }

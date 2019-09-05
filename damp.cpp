@@ -5,12 +5,12 @@
 
 //"simplified" Efroimsky Torque
 //Taken from Makarov 2012, eqn 10
-double damp(Planet *planet)
+double damp(Planet *planet, double t)
 //double damp(double M_star, double plan_radius, double semi_major, double ecc, double M_plan, double mean_motion, double gdot, double mu, double alpha, double tau_M, double tau_A)
 {
-    double mean_motion = planet->get_mean_motion();
+    double mean_motion = planet->mean_motion(t);
     double gdot = planet->get_gamma_dot();
-    double ecc = planet->get_ecc();
+    double ecc = planet->eccentricity(t);
     double M_star = planet->get_stellar_mass();
 
     double sum = 0;

@@ -82,7 +82,7 @@ void Planet::solve()
 //functional form of double derivative of gamma.
 double Planet::func_gdd(double t, double x, double x_dot)
 {
-    double damping = damp(this);
+    double damping = damp(this,t);
     return -1/2. * omega_s(t) * omega_s(t) * std::sin(2*x) - mean_motion_dot(t) + damping / _moi_coeff / _mass / _radius / _radius; //x and x_dot represent gamma and gamma_dot, respectively
 }
 
@@ -92,7 +92,7 @@ double Planet::mean_motion(double t)
      * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
     int i = int(time / spline_delta_t);
-    return spline_inter(spline_mm[i],spline_b[i],spline_c[i],spline_d[i],t,spline_time[i]);
+    return spline_inter(spline_a_mm[i],spline_b_mm[i],spline_c_mm[i],spline_d_mm[i],t,spline_time[i]);
 
     //return 2*PI;
 }
@@ -103,12 +103,22 @@ double Planet::mean_motion_dot(double t)
      * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
     int i = int(time / spline_delta_t);
-    return spline_inter_deriv(spline_b[i],spline_c[i],spline_d[i],t,spline_time[i]);
+    return spline_inter_deriv(spline_b_mm[i],spline_c_mm[i],spline_d_mm[i],t,spline_time[i]);
 
     //return 0;
 }
 
+double Planet::eccentricity(double t)
+{
+    /********************************************************************
+     * Following does not yet support looping over input orbital sims   *
+     ********************************************************************/
+    int i = int(time / spline_delta_t);
+    return spline_inter(spline_a_e[i],spline_b_e[i],spline_c_e[i],spline_d_e[i],t,spline_time[i]);
+
+}
+
 double Planet::omega_s(double t)
 {
-    return mean_motion(t) * std::sqrt(3*std::abs(H(0,ecc) * _B_A_C));
+    return mean_motion(t) * std::sqrt(3*std::abs(H(0,eccentricity(t)) * _B_A_C));
 }

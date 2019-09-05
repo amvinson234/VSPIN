@@ -32,6 +32,7 @@ public:
 
     double mean_motion(double t); //returns mean motion at arbitrary time
     double mean_motion_dot(double t); //returns time derivative of mean motion at arbitrary time
+    double eccentricity(double t); //returns eccentricity at arbitrary time
     double omega_s(double t); //returns natural libration frequency, omega_s, at arbitrary time.
 
     void solve(); //updates gamma and gamma_dot by performing integration. goes forward, adjusting time_step until convergence crit is reached, then stops.
@@ -44,7 +45,7 @@ private:
     double  _alpha;
     double  _tau_M;
     double  _tau_A;
-    double _mean_motion;
+   // double _mean_motion;
     double _B_A_C; //triaxiality
     double _mass_star;
     double _moi_coeff; //moment of inertia coefficient
@@ -54,8 +55,8 @@ private:
     double _epsilon = 1.0e-6; //convergence criterion.
 
 
-    double semi_major;
-    double ecc; //may want to change this to a function, ecc(t).
+    double _semi_major;
+   // double ecc; //may want to change this to a function, ecc(t).
 
     double gamma;
     double gamma_dot;
@@ -63,10 +64,14 @@ private:
     double time;
     double time_step;
 
-    std::vector<double> spline_b;
-    std::vector<double> spline_c;
-    std::vector<double> spline_d;
-    std::vector<double> spline_mm;
+    std::vector<double> spline_b_mm;
+    std::vector<double> spline_c_mm;
+    std::vector<double> spline_d_mm;
+    std::vector<double> spline_a_mm;
+    std::vector<double> spline_b_e;
+    std::vector<double> spline_c_e;
+    std::vector<double> spline_d_e;
+    std::vector<double> spline_a_e;
     std::vector<double> spline_time;
     double spline_delta_t;
 
