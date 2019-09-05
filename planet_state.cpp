@@ -22,7 +22,7 @@ Planet::Planet(std::string name, double radius, double mass, double B_A_C, doubl
     Read in orbit
     *************/
 
-    read_orbit(name + "_avg_longg_multisim13.txt");
+    read_orbit("tamayo_runs/" + name + "_avg_longg_multisim13.txt");
 
 
     //initialize to Earth values if other planet details not specified
@@ -121,14 +121,16 @@ void Planet::read_orbit(std::string input_file_name)
         input_peri.push_back(p);
     }
 
-    for(int i = 0; i < input_time.size(); i++) input_time[i] = input_time[i] - input_time[0]; //set initial time to 0.
+    double initial_time = input_time[0];
+    for(int i = 0; i < input_time.size(); i++) input_time[i] = input_time[i] - initial_time; //set initial time to 0.
 
     //Following lines for for smooth stitch back to front. ensures that back of vectors equal its front.
-
+    /*
     input_time.push_back(t+input_time[1]-input_time[0]);
     input_mm.push_back(input_mm[1]);
     input_ecc.push_back(input_ecc[1]);
     input_peri.push_back(input_peri[1]);
+    */
 
     input.close();
 

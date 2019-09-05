@@ -1,4 +1,5 @@
 #include "spline.h"
+#include <iostream>
 
 void spline(std::vector<double> &time, std::vector<double> &data, std::vector<double> &b, std::vector<double> &c, std::vector<double> &d)
 {
@@ -48,6 +49,11 @@ double spline_inter_deriv(double b, double c, double d, double t, double ti)
 
 int sim_loop(std::string file_name)
 {
+    /*********************************************************************************************************************
+    *RETURNS JUST LINE 0 FOR NOW! MAY NEED TO CHANGE THIS LATER IF I WANT TO LOOP OVER SIMS (BUT MAY NOT BE NECESSARY)   *
+    *********************************************************************************************************************/
+    return 0;
+
     std::ifstream input(file_name.c_str());
     std::string last_line, line;
     getline(input,line);

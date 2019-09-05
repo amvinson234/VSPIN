@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <iomanip>
 #include "damp.h"
 #include "constants.h"
 
@@ -18,21 +18,20 @@ int main()
 
     std::string name = "trappf";
     Planet planet(name, plan_radius, M_plan, B_A_C, mu, alpha, tau_M, tau_A, mass_star);
-    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
-    planet.solve();
-    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
-    planet.solve();
-    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
-    planet.solve();
-    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
-    planet.solve();
-    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
-    planet.solve();
-    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
-    planet.solve();
-    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
-    planet.solve();
-    std::cerr << planet.get_time() << '\t' << planet.get_gamma() << '\t' << planet.get_gamma_dot() << std::endl;
+
+    std::string output_name = "test_output.txt";
+    std::ofstream output;
+    output.open(output_name.c_str());
+    output << "time" << '\t' << "gamma" << '\t' << "g-dot" << '\t' << "mean motion" << '\t' << "n-dot" << '\t' << "eccentricity" << std::endl;
+
+    while(planet.get_time() < 1000)
+    {
+        planet.solve();
+        output << std::setprecision(8) << planet.get_time() << '\t' << std::setprecision(6) << planet.get_gamma() << '\t' << planet.get_gamma_dot()  << '\t'
+            << planet.get_mean_motion() << '\t' << planet.mean_motion(planet.get_time()) << '\t' << planet.get_ecc() << std::endl;
+    }
+
+
 
     return 0;
 }
