@@ -6,25 +6,56 @@
 
 int main()
 {
+    std::string input_file_name = "parameters.txt";
+    std::ifstream input_params(input_file_name.c_str());
+    std::string header_trash;
+    std::getline(input_params, header_trash);
 
-    double plan_radius = REARTH;
-    double M_plan = MEARTH;
-    double mu = 0.8 * pow(10,11);
-    double alpha = 0.2;
-    double tau_M = 500;
-    double tau_A = tau_M;
-    double B_A_C = 10.e-5;
-    double mass_star = 0.08 * MSUN;
+    std::string planet_name;
+    double  gamma, gamma_dot, mass_star, B_A_C, moi_coeff, tau_M, tau_A, mu, alpha;
+    input_params >> planet_name >> gamma >> gamma_dot >> mass_star >> B_A_C >> moi_coeff >> tau_M >> tau_A >> mu >> alpha;
 
-    std::string name = "trappf";
-    Planet planet(name, plan_radius, M_plan, B_A_C, mu, alpha, tau_M, tau_A, mass_star);
+    mass_star *= MSUN;
 
-    std::string output_name = "test_output.txt";
+    double plan_radius, M_plan;
+    if(planet_name == "d")
+    {
+        plan_radius = 0.784 * REARTH;
+        M_plan = 0.297 * MEARTH;
+    }
+    else if (planet_name == "e")
+    {
+        plan_radius = 0.91 * REARTH;
+        M_plan = 0.772 * MEARTH;
+    }
+    else if (planet_name == "f")
+    {
+        plan_radius = 1.045 * REARTH;
+        M_plan = 0.68 * MEARTH;
+    }
+    else
+    {
+        std::cout << "Input planet mass in Earth mass units: ";
+        std::cin >> M_plan;
+        M_plan *= MEARTH;
+        std::cout << std::endl << "Input planet radius in Earth radius units: ";
+        std::cin >> plan_radius;
+        plan_radius *= REARTH;
+    }
+
+
+    //std::string name = "trapp" + planet_name;
+    std::string name = planet_name;
+    Planet planet(name, gamma, gamma_dot, plan_radius, M_plan, B_A_C, mu, alpha, tau_M, tau_A, mass_star);
+
+    std::string output_name = "output_" + planet_name + ".txt";
     std::ofstream output;
     output.open(output_name.c_str());
     output << "time" << '\t' << "gamma" << '\t' << "g-dot" << '\t' << "mean motion" << '\t' << "n-dot" << '\t' << "eccentricity" << std::endl;
 
-    while(planet.get_time() < 1000)
+    double run_time = 9000; //in simulation years
+
+    while(planet.get_time() < run_time)
     {
         planet.solve();
         output << std::setprecision(8) << planet.get_time() << '\t' << std::setprecision(6) << planet.get_gamma() << '\t' << planet.get_gamma_dot()  << '\t'

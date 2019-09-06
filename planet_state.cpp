@@ -2,7 +2,7 @@
 #include <cmath>
 
 
-Planet::Planet(std::string name, double radius, double mass, double B_A_C, double mu, double alpha, double tau_M, double tau_A, double mass_star)
+Planet::Planet(std::string name, double gamma_0, double gamma_dot_0, double radius, double mass, double B_A_C, double mu, double alpha, double tau_M, double tau_A, double mass_star)
 {
     _name = name;
     _radius = radius;
@@ -22,7 +22,7 @@ Planet::Planet(std::string name, double radius, double mass, double B_A_C, doubl
     Read in orbit
     *************/
 
-    read_orbit("tamayo_runs/" + name + "_avg_longg_multisim18.txt");
+    read_orbit("tamayo_runs/tamayo_grimm_" + name + ".txt");
 
 
     //initialize to Earth values if other planet details not specified
@@ -100,14 +100,14 @@ void Planet::read_orbit(std::string input_file_name)
     }
 
     double t, mm, e, p;
-    std::vector<double> input_time, input_mm, input_ecc, input_peri;
+    std::vector<double> input_time, input_mm, input_ecc;//, input_peri;
     while(input >> t)
     {
-        input >> mm >> e >> p;
+        input >> mm >> e;// >> p;
         input_time.push_back(t);
         input_mm.push_back(mm);
         input_ecc.push_back(e);
-        input_peri.push_back(p);
+        //input_peri.push_back(p);
     }
 
     double initial_time = input_time[0];
