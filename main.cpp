@@ -12,10 +12,15 @@ int main()
     std::getline(input_params, header_trash);
 
     std::string planet_name;
-    double  gamma, gamma_dot, mass_star, B_A_C, moi_coeff, tau_M, tau_A, mu, alpha;
-    input_params >> planet_name >> gamma >> gamma_dot >> mass_star >> B_A_C >> moi_coeff >> tau_M >> tau_A >> mu >> alpha;
+    input_params >> planet_name;
+    double input;
+    std::vector<double> inputs;
+    while(input_params >> input)
+    {
+        inputs.push_back(input);
+    }
 
-    mass_star *= MSUN;
+    double mass_star = inputs[2] * MSUN;
 
     double plan_radius, M_plan;
     if(planet_name == "d")
@@ -43,10 +48,9 @@ int main()
         plan_radius *= REARTH;
     }
 
-
     //std::string name = "trapp" + planet_name;
     std::string name = planet_name;
-    Planet planet(name, gamma, gamma_dot, plan_radius, M_plan, B_A_C, mu, alpha, tau_M, tau_A, mass_star);
+    Planet planet(name, M_plan, plan_radius, inputs);
 
     std::string output_name = "output_" + planet_name + ".txt";
     std::ofstream output;

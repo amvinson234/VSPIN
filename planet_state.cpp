@@ -2,36 +2,35 @@
 #include <cmath>
 
 
-Planet::Planet(std::string name, double gamma_0, double gamma_dot_0, double radius, double mass, double B_A_C, double mu, double alpha, double tau_M, double tau_A, double mass_star)
+Planet::Planet(std::string name, double mass, double radius, std::vector<double> inputs)
 {
-    _name = name;
-    _radius = radius;
+
+    if(inputs.size() != 9) //return error
+
+    gamma = inputs[0];
+    gamma_dot = inputs[1];
+    _mass_star = inputs[2];
+    _B_A_C = inputs[3];
+    _moi_coeff = inputs[4];
+    _tau_M = inputs[5];
+    _tau_A = inputs[6];
+    _mu = inputs[7];
+    _alpha = inputs[8];
+
     _mass = mass;
-    _B_A_C = B_A_C;
-    _mu = mu;
-    _alpha = alpha;
-    _tau_M = tau_M;
-    _tau_A = tau_A;
-    _mass_star = mass_star;
-    _moi_coeff = 2.0/5.0;
-
-    gamma = 0.;
-    gamma_dot = 2 * PI; //rad per year
-
-    /*************
-    Read in orbit
-    *************/
+    _radius = radius;
 
     read_orbit("tamayo_runs/tamayo_grimm_" + name + ".txt");
 
-
     //initialize to Earth values if other planet details not specified
     _semi_major = std::pow(4 * PI * PI / std::pow(mean_motion(0),2) * _mass_star / MSUN, 1.0/3.0) * AEARTH;
+
     time = 0.; //years
     time_step = 1.; //years
 
     _min_dt = 2*PI/mean_motion(0);
     _max_dt = INFINITY;
+
 }
 
 std::string Planet::name()

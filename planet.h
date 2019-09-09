@@ -11,7 +11,7 @@ class Planet
 {
 public:
     //possibly collapse all params into a vector later
-    Planet(std::string name, double gamma_0, double gamma_dot_0, double radius, double mass, double B_A_C, double mu, double alpha, double tau_M, double tau_A, double mass_star);
+    Planet(std::string name,  double mass, double radius, std::vector<double> inputs);
     std::string name();
     double get_gamma();
     double get_gamma_dot();
@@ -63,6 +63,7 @@ private:
     double time;
     double time_step;
 
+    //Following are spline data, calculated in read_orbit, needed to calculate mean_motion and eccentricity at arbitrary times
     std::vector<double> spline_b_mm;
     std::vector<double> spline_c_mm;
     std::vector<double> spline_d_mm;
