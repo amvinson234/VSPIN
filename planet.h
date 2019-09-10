@@ -11,6 +11,7 @@ class Planet
 {
 public:
     //possibly collapse all params into a vector later
+    Planet();
     Planet(std::string name,  double mass, double radius, std::vector<double> inputs);
     std::string name();
     double get_gamma();

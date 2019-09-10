@@ -1,6 +1,10 @@
 #include "planet.h"
 #include <cmath>
 
+Planet::Planet()
+{
+
+}
 
 Planet::Planet(std::string name, double mass, double radius, std::vector<double> inputs)
 {
