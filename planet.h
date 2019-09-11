@@ -81,6 +81,7 @@ private:
 
     std::pair<double,double> integrate(double t, double h, double y, double y_dot); //integrates forward from time, t, to one timestep, t + h. returns pair: first = gamma, second = gamma_dot
     void read_orbit(std::string file_name);
+
 };
 
 #endif // PLANET_H_INCLUDED

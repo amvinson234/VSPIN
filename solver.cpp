@@ -1,6 +1,7 @@
 #include "planet.h"
 #include "damp.h"
 #include "spline.h"
+#include "atmosphere.h"
 #include <cmath>
 
 
@@ -82,7 +83,9 @@ void Planet::solve()
 //functional form of double derivative of gamma.
 double Planet::func_gdd(double t, double x, double x_dot)
 {
-    return -1/2. * omega_s(t) * omega_s(t) * std::sin(2*x) - mean_motion_dot(t) + damp(this,t) / _moi_coeff / _mass / _radius / _radius; //x and x_dot represent gamma and gamma_dot, respectively
+    Atmosphere atmosphere(this);
+    std::cerr << atmosphere.damp() << "   " << damp(this,t) << std::endl;
+    return -1/2. * omega_s(t) * omega_s(t) * std::sin(2*x) - mean_motion_dot(t) + (damp(this,t) + atmosphere.damp()) / _moi_coeff / _mass / _radius / _radius; //x and x_dot represent gamma and gamma_dot, respectively
 }
 
 double Planet::mean_motion(double t)
