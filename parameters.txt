@@ -1,0 +1,2 @@
+planet	gamma_0	gamma-dot_0	M_star	(B-A)/C		moi_coeff	tau_M	tau_A	mu			alpha
+f		0.0		10.0		0.08	10.0e-5		0.4			500.	500.	8.0e+10		0.2
