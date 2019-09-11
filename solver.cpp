@@ -83,8 +83,7 @@ void Planet::solve()
 //functional form of double derivative of gamma.
 double Planet::func_gdd(double t, double x, double x_dot)
 {
-    Atmosphere atmosphere(this);
-    return -1/2. * omega_s(t) * omega_s(t) * std::sin(2*x) - mean_motion_dot(t) + (damp(this,t) + atmosphere.damp()) / _moi_coeff / _mass / _radius / _radius; //x and x_dot represent gamma and gamma_dot, respectively
+    return -1/2. * omega_s(t) * omega_s(t) * std::sin(2*x) - mean_motion_dot(t) + (damp(this,t) + atmosphere->damp(this)) / _moi_coeff / _mass / _radius / _radius; //x and x_dot represent gamma and gamma_dot, respectively
 }
 
 double Planet::mean_motion(double t)

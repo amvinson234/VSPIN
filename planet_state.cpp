@@ -1,4 +1,5 @@
 #include "planet.h"
+#include "atmosphere.h"
 #include <cmath>
 
 Planet::Planet()
@@ -34,6 +35,8 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
 
     _min_dt = 2*PI/mean_motion(0);
     _max_dt = INFINITY;
+
+    atmosphere = new Atmosphere(this);
 
 }
 

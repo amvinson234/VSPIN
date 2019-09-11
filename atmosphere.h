@@ -1,8 +1,9 @@
 #ifndef ATMOSPHERE_H_INCLUDED
 #define ATMOSPHERE_H_INCLUDED
 
-#include "planet.h"
 #include "constants.h"
+
+class Planet;
 
 class Atmosphere
 {
@@ -10,7 +11,7 @@ public:
     Atmosphere();
     Atmosphere(Planet *planet);
 
-    double damp();
+    double damp(Planet *planet);
 
 private:
     Planet *_planet;
