@@ -10,5 +10,6 @@ double const TSUN = 5800; //temperature of sun in Kelvin
 double const REARTH = 6.3741e+6; //radius of earth, meters
 double const AEARTH = 1.5e+11; //semi-major axis of Earth's orbit, meters
 double const G = 6.674e-11; //Gravitational constant, SI units
+double const SEC_PER_YEAR = 3.1536e+7;
 
 #endif // CONSTANTS_H_INCLUDED
