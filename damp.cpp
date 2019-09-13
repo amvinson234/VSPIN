@@ -77,7 +77,7 @@ double K_c(Planet *planet, double chi)
     double radius = planet->get_radius();
     double M_plan = planet->get_mass();
     double alpha = planet->get_alpha();
-    double tau_A = planet->get_tau_A();
+    double tau_A = tau_a(chi);
     double tau_M = planet->get_tau_M();
     double mu = planet->get_mu();
 
@@ -89,4 +89,8 @@ double K_c(Planet *planet, double chi)
     return K;
 }
 
+double tau_a(double chi)
+{
+    return 50000.0 * std::exp(-chi / 0.2) + 500.0;
+}
 
