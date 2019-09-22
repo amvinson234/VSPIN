@@ -54,7 +54,7 @@ private:
 
     double  _min_dt;
     double  _max_dt;
-    double _epsilon = 1.0e-6; //convergence criterion.
+    //double _epsilon = 1.0e-6; //convergence criterion.
 
 
     double _semi_major;
