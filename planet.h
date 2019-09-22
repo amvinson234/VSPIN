@@ -15,6 +15,8 @@ public:
     //possibly collapse all params into a vector later
     Planet();
     Planet(std::string name,  double mass, double radius, std::vector<double> inputs);
+    Planet(std::string name, std::string run, double mass, double radius, std::vector<double> inputs);
+
     std::string name();
     double get_gamma();
     double get_gamma_dot();
