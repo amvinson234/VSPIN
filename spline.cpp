@@ -64,7 +64,7 @@ int sim_loop(std::string file_name)
     do
     {
         ctr++;
-        h = abs(time_prev_last - time);
+        h = std::abs(time_prev_last - time);
         time_prev_last = time;
         n_prev_last = n;
         e_prev_last = ecc;

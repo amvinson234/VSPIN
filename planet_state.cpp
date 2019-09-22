@@ -25,7 +25,7 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
     _mass = mass;
     _radius = radius;
 
-    read_orbit("tamayo_runs/tamayo_grimm_" + name + ".txt");
+    read_orbit("orbits/tamayo_grimm_" + name + ".txt");
 
     //initialize to Earth values if other planet details not specified
     _semi_major = std::pow(4 * PI * PI / std::pow(mean_motion(0),2) * _mass_star / MSUN, 1.0/3.0) * AEARTH;

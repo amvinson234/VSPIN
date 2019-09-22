@@ -82,8 +82,8 @@ double K_c(Planet *planet, double chi)
     double mu = planet->get_mu();
 
     double lambda_2 = 4 * PI * (2 * 2 * 2 + 4 * 2 + 3) * std::pow(radius, 4) * mu / ( 3 * 2 * G * M_plan *M_plan );
-    double real_part = chi + std::pow(chi,1 - alpha) * std::pow(tau_A, -alpha) * std::cos(alpha * PI / 2) * std::tgamma(1+alpha);
-    double imaginary_part = - std::pow(tau_M,-1) - std::pow(chi,1-alpha) * std::pow(tau_A,-alpha) * std::sin(alpha*PI/2) * std::tgamma(1+alpha);
+    double real_part = chi + std::pow(chi,1 - alpha) * std::pow(tau_A, -alpha) * std::cos(alpha * PI / 2) * tgamma(1+alpha);
+    double imaginary_part = - std::pow(tau_M,-1) - std::pow(chi,1-alpha) * std::pow(tau_A,-alpha) * std::sin(alpha*PI/2) * tgamma(1+alpha);
 
     double K = -3 / 2.0 * lambda_2 * chi * imaginary_part / (std::pow(real_part + lambda_2 * chi, 2) + std::pow(imaginary_part,2) );
     return K;
