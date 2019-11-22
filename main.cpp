@@ -52,18 +52,18 @@ int main()
     std::string name = planet_name;
     Planet planet(name, M_plan, plan_radius, inputs);
 
-    std::string output_name = "output_" + planet_name + ".txt";
+    std::string output_name = "output_" + planet_name + ".csv";
     std::ofstream output;
     output.open(output_name.c_str());
-    output << "time" << '\t' << "gamma" << '\t' << "g-dot" << '\t' << "mean motion" << '\t' << "n-dot" << '\t' << "eccentricity" << std::endl;
+    output << "time" << ',' << "gamma" << ',' << "g-dot" << ',' << "mean-motion" << ',' << "n-dot" << ',' << "eccentricity" << std::endl;
 
     double run_time = 9000; //in simulation years
 
     while(planet.get_time() < run_time)
     {
         planet.solve();
-        output << std::setprecision(8) << planet.get_time() << '\t' << std::setprecision(6) << planet.get_gamma() << '\t' << planet.get_gamma_dot()  << '\t'
-        << '\t' << planet.mean_motion(planet.get_time()) << '\t' << planet.eccentricity(planet.get_time()) << std::endl;
+        output << std::setprecision(8) << planet.get_time() << ',' << std::setprecision(6) << planet.get_gamma() << ',' << planet.get_gamma_dot()  << ','
+         << planet.mean_motion(planet.get_time()) << ',' << planet.mean_motion_dot(planet.get_time()) << ',' << planet.eccentricity(planet.get_time()) << std::endl;
     }
 
 
