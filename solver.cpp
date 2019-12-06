@@ -91,7 +91,7 @@ double Planet::mean_motion(double t)
     /********************************************************************
      * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
-    int i = int(time / spline_delta_t);
+    int i = int(t / spline_delta_t);
     return spline_inter(spline_a_mm[i],spline_b_mm[i],spline_c_mm[i],spline_d_mm[i],t,spline_time[i]);
 
     //return 2*PI;
@@ -102,7 +102,7 @@ double Planet::mean_motion_dot(double t)
     /********************************************************************
      * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
-    int i = int(time / spline_delta_t);
+    int i = int(t / spline_delta_t);
     return spline_inter_deriv(spline_b_mm[i],spline_c_mm[i],spline_d_mm[i],t,spline_time[i]);
 
     //return 0;
@@ -113,7 +113,7 @@ double Planet::eccentricity(double t)
     /********************************************************************
      * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
-    int i = int(time / spline_delta_t);
+    int i = int(t / spline_delta_t);
     return spline_inter(spline_a_e[i],spline_b_e[i],spline_c_e[i],spline_d_e[i],t,spline_time[i]);
 
 }
