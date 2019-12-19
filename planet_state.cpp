@@ -12,6 +12,7 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
 
     if(inputs.size() != 9) //return error
 
+    //parameters and initial conds
     gamma = inputs[0];
     gamma_dot = inputs[1];
     _mass_star = inputs[2];
@@ -22,6 +23,12 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
     _mu = inputs[7];
     _alpha = inputs[8];
 
+    //features on/off
+    damping_on = inputs[9];
+    atmosphere_on = inputs[10];
+    driving_on = inputs[11];
+
+    //mass and radius params
     _mass = mass;
     _radius = radius;
 
@@ -35,6 +42,8 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
 
     _min_dt = 2*PI/mean_motion(0);
     _max_dt = INFINITY;
+
+
 
     atmosphere = new Atmosphere(this);
 

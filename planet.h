@@ -88,6 +88,11 @@ private:
 
     Atmosphere *atmosphere;
 
+
+    bool driving_on;
+    bool atmosphere_on;
+    bool damping_on;
+
 };
 
 #endif // PLANET_H_INCLUDED
