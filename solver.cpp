@@ -54,7 +54,7 @@ void Planet::solve()
         double delta_gamma = gamma - gamma_b;
         double delta_gamma_dot = gamma_dot - gamma_dot_b;
 
-        if(std::abs(delta_gamma) > std::abs((1.0e-7) * gamma) && time_step > _min_dt) //convergence criterion not reached
+        if(std::abs(delta_gamma) > std::abs((1.0e-6) * gamma) && time_step > _min_dt) //convergence criterion not reached
         {
             time_step = time_step / 2.0;
             gamma = gamma_init;
@@ -101,8 +101,7 @@ double Planet::mean_motion(double t)
      * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
     int i = int(t / spline_delta_t);
-    if(driving_on) return spline_inter(spline_a_mm[i],spline_b_mm[i],spline_c_mm[i],spline_d_mm[i],t,spline_time[i]);
-    else return spline_inter(spline_a_mm[0],spline_b_mm[0],spline_c_mm[0],spline_d_mm[0],0.0,spline_time[0]);
+    return spline_inter(spline_a_mm[i],spline_b_mm[i],spline_c_mm[i],spline_d_mm[i],t,spline_time[i]);
 
     //return 2*PI;
 }
@@ -113,8 +112,7 @@ double Planet::mean_motion_dot(double t)
      * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
     int i = int(t / spline_delta_t);
-    if(driving_on) return spline_inter_deriv(spline_b_mm[i],spline_c_mm[i],spline_d_mm[i],t,spline_time[i]);
-    else return spline_inter_deriv(spline_b_mm[0],spline_c_mm[0],spline_d_mm[0],0.,spline_time[0]);
+    return spline_inter_deriv(spline_b_mm[i],spline_c_mm[i],spline_d_mm[i],t,spline_time[i]);
 
     //return 0;
 }
@@ -125,8 +123,7 @@ double Planet::eccentricity(double t)
      * Following does not yet support looping over input orbital sims   *
      ********************************************************************/
     int i = int(t / spline_delta_t);
-    if(driving_on) return spline_inter(spline_a_e[i],spline_b_e[i],spline_c_e[i],spline_d_e[i],t,spline_time[i]);
-    else return spline_inter(spline_a_e[0],spline_b_e[0],spline_c_e[0],spline_d_e[0],0.,spline_time[0]);
+    return spline_inter(spline_a_e[i],spline_b_e[i],spline_c_e[i],spline_d_e[i],t,spline_time[i]);
 
 }
 
