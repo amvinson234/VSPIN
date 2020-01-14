@@ -52,7 +52,7 @@ Planet::Planet(std::vector<double> inputs, std::vector<double> orbit_inputs)
     time = 0.; //years
     time_step = 1.; //years
 
-    _min_dt = 2*PI/mean_motion(0);
+    _min_dt = 2*PI/mean_motion(0)/32.;
     _max_dt = INFINITY;
 
     atmosphere = new Atmosphere(this);
