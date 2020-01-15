@@ -139,14 +139,14 @@ void Planet::read_orbit(std::string input_file_name)
     std::ifstream input(input_file_name.c_str());
     std::string header_trash;
     std::getline(input, header_trash);
-    int begin_line = sim_loop(input_file_name);
-
+//    int begin_line = sim_loop(input_file_name);
+/*
     for(int ctr = 0; ctr < begin_line - 1; ctr++)
     {
         std::string line;
         std::getline(input,line);
     }
-
+*/
     double t, mm, e, p;
     std::vector<double> input_time, input_mm, input_ecc;//, input_peri;
     while(input >> t)
@@ -171,12 +171,9 @@ void Planet::read_orbit(std::string input_file_name)
 
     input.close();
 
-    spline_time = input_time;
-    spline_a_mm = input_mm;
-    spline_a_e = input_ecc;
-    spline_delta_t = (spline_time[spline_time.size()-1] - spline_time[0]) / spline_time.size();
+    spline_ecc = Spline(input_time, input_ecc);
+    spline_mm = Spline(input_time, input_mm);
 
-    spline(spline_time, spline_a_mm, spline_b_mm, spline_c_mm, spline_d_mm);
-    spline(spline_time, spline_a_e, spline_b_e, spline_c_e, spline_d_e);
+    spline_delta_t = (input_time[input_time.size()-1] - input_time[0]) / input_time.size();
 
 }

@@ -69,15 +69,9 @@ private:
     double time_step;
 
     //Following are spline data, calculated in read_orbit, needed to calculate mean_motion and eccentricity at arbitrary times
-    std::vector<double> spline_b_mm;
-    std::vector<double> spline_c_mm;
-    std::vector<double> spline_d_mm;
-    std::vector<double> spline_a_mm;
-    std::vector<double> spline_b_e;
-    std::vector<double> spline_c_e;
-    std::vector<double> spline_d_e;
-    std::vector<double> spline_a_e;
-    std::vector<double> spline_time;
+    Spline spline_mm; //mean motion spline
+    Spline spline_ecc; //eccentricity spline
+
     double spline_delta_t;
 
 
