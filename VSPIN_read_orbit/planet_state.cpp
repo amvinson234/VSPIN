@@ -10,7 +10,7 @@ Planet::Planet()
 Planet::Planet(std::string name, double mass, double radius, std::vector<double> inputs)
 {
 
-    if(inputs.size() != 9) //return error
+    //if(inputs.size() != 12) //return error
 
     //parameters and initial conds
     gamma = inputs[0];
@@ -52,7 +52,7 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
 Planet::Planet(std::string name, std::string run, double mass, double radius, std::vector<double> inputs)
 {
 
-    if(inputs.size() != 9) //return error
+    //if(inputs.size() != 12) //return error
 
     gamma = inputs[0];
     gamma_dot = inputs[1];
@@ -63,6 +63,11 @@ Planet::Planet(std::string name, std::string run, double mass, double radius, st
     _tau_A = inputs[6];
     _mu = inputs[7];
     _alpha = inputs[8];
+
+    //features on/off
+    damping_on = inputs[9];
+    atmosphere_on = inputs[10];
+    driving_on = inputs[11];
 
     _mass = mass;
     _radius = radius;
@@ -75,7 +80,7 @@ Planet::Planet(std::string name, std::string run, double mass, double radius, st
     time = 0.; //years
     time_step = 1.; //years
 
-    _min_dt = 2*PI/mean_motion(0);
+    _min_dt = 2*PI/mean_motion(0)/32.0;
     _max_dt = INFINITY;
 
     atmosphere = new Atmosphere(this);
