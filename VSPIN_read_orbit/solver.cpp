@@ -114,8 +114,6 @@ double Planet::mean_motion_dot(double t)
     int i = int(t / spline_delta_t);
     if(driving_on) return spline_mm.spline_interpolate_derivative(t,i);
     else return 0.0;
-
-    //return 0;
 }
 
 double Planet::eccentricity(double t)

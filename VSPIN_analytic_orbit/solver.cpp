@@ -74,7 +74,7 @@ void Planet::solve()
         delta_gamma = gamma - gamma_b;
         delta_gamma_dot = gamma_dot - gamma_dot_b;
 
-        if(std::abs(delta_gamma) > std::abs((1.0e-7) * gamma) && time_step > _min_dt) //convergence criterion not reached
+        if(std::abs(delta_gamma) > std::abs((1.0e-6) * gamma) && time_step > _min_dt) //convergence criterion not reached
         {
             time_step = time_step / 2.0;
             gamma = gamma_init;

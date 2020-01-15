@@ -20,9 +20,6 @@ double damp(Planet *planet, double t)
         int sign_omega_220q = omega_220q / std::abs(omega_220q);
         double chi_220q = std::abs(omega_220q);
         double G_20q = H(q, ecc);
-        //Need to give values for mu, alpha, taus...
-        //perhaps taken from a param file, and/or as an input in the damp() function
-        //sum += pow(G_20q,2) * K_c(chi_220q,plan_radius,M_plan,mu,alpha,tau_M,tau_A) * sign_omega_220q;
         sum += std::pow(G_20q,2) * K_c(planet,chi_220q) * sign_omega_220q;
     }
 
