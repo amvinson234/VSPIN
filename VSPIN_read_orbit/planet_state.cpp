@@ -15,12 +15,12 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
     //parameters and initial conds
     gamma = inputs[0];
     gamma_dot = inputs[1];
-    _mass_star = inputs[2];
+    _mass_star = inputs[2] * MSUN;
     _B_A_C = inputs[3];
     _moi_coeff = inputs[4];
     _tau_M = inputs[5];
     _tau_A = inputs[6];
-    _mu = inputs[7];
+    _mu = inputs[7] * SEC_PER_YEAR * SEC_PER_YEAR;
     _alpha = inputs[8];
 
     //features on/off
@@ -44,7 +44,6 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
     _max_dt = INFINITY;
 
 
-
     atmosphere = new Atmosphere(this);
 
 }
@@ -56,12 +55,12 @@ Planet::Planet(std::string name, std::string run, double mass, double radius, st
 
     gamma = inputs[0];
     gamma_dot = inputs[1];
-    _mass_star = inputs[2];
+    _mass_star = inputs[2] * MSUN;
     _B_A_C = inputs[3];
     _moi_coeff = inputs[4];
     _tau_M = inputs[5];
     _tau_A = inputs[6];
-    _mu = inputs[7];
+    _mu = inputs[7] * SEC_PER_YEAR * SEC_PER_YEAR;
     _alpha = inputs[8];
 
     //features on/off

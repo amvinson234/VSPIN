@@ -20,7 +20,7 @@ Planet::Planet(std::vector<double> inputs, std::vector<double> orbit_inputs)
     _moi_coeff = inputs[4];
     _tau_M = inputs[5];
     _tau_A = inputs[6];
-    _mu = inputs[7];
+    _mu = inputs[7] * SEC_PER_YEAR * SEC_PER_YEAR;
     _alpha = inputs[8];
 
     //features on/off
