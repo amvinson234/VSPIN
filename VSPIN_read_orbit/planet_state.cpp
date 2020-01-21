@@ -40,7 +40,7 @@ Planet::Planet(std::string name, double mass, double radius, std::vector<double>
     time = 0.; //years
     time_step = 1.; //years
 
-    _min_dt = 2*PI/mean_motion(0)/32.;
+    _min_dt = 0.0; // 2*PI/mean_motion(0)/32.;
     _max_dt = INFINITY;
 
 
@@ -79,7 +79,7 @@ Planet::Planet(std::string name, std::string run, double mass, double radius, st
     time = 0.; //years
     time_step = 1.; //years
 
-    _min_dt = 2*PI/mean_motion(0)/32.0;
+    _min_dt = 0.0; //2*PI/mean_motion(0)/32.0;
     _max_dt = INFINITY;
 
     atmosphere = new Atmosphere(this);
