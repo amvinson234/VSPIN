@@ -52,7 +52,7 @@ int main()
     std::string name = planet_name;
     Planet planet(name, M_plan, plan_radius, inputs);
 
-    std::string output_name = "output_" + planet_name + "_driveoff.csv";
+    std::string output_name = "output_" + planet_name + ".csv";
     std::ofstream output;
     output.open(output_name.c_str());
     output << "time" << ',' << "gamma" << ',' << "g-dot" << ',' << "mean-motion" << ',' << "n-dot" << ',' << "eccentricity" << std::endl;
@@ -63,7 +63,7 @@ int main()
     while(planet.get_time() < run_time)
     {
         planet.solve();
-        if(planet.get_time() - last_printed_time >= 0.01)
+        if(planet.get_time() - last_printed_time >= 0.002)
         {
             output << std::setprecision(8) << planet.get_time() << ',' << std::setprecision(6) << planet.get_gamma() << ',' << planet.get_gamma_dot()  << ','
                 << planet.mean_motion(planet.get_time()) << ',' << planet.mean_motion_dot(planet.get_time()) << ',' << planet.eccentricity(planet.get_time()) << std::endl;
