@@ -16,7 +16,7 @@ double damp(Planet *planet, double t)
     double sum = 0;
     for(int q = -1; q < 5; q++)
     {
-        double omega_220q = (2+q)*mean_motion - 2*gdot;
+        double omega_220q = (2+q)*mean_motion - 2*(gdot + mean_motion);
         int sign_omega_220q = omega_220q / std::abs(omega_220q);
         double chi_220q = std::abs(omega_220q);
         double G_20q = H(q, ecc);
