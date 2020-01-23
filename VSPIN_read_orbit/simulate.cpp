@@ -81,8 +81,8 @@ void Simulate::setup()
     output << "time" << ',' << "gamma" << ',' << "g-dot" << ',' << "theta" << ',' << "theta-dot" << ',' << "mean-anomaly" << ','
         << "mean-motion" << ',' << "n-dot" << ',' << "eccentricity" << std::endl;
 
-    double last_printed_time = 0.0;
-    double dt_sampling = 2*PI / planet.mean_motion(0.0) / 2.0;
+
+    dt_sampling = 2*PI / planet.mean_motion(0.0) / 2.0;
 }
 
 double Simulate::_run_time = 0.0;
