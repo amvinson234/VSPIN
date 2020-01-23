@@ -5,12 +5,13 @@
 #include "constants.h"
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 class Simulate
 {
 public:
 
-    static void Start(double run_time);
+    static void Start(std::string run, double run_time);
 
 private:
 
@@ -19,6 +20,7 @@ private:
 
     static Planet planet;
     static std::ofstream output;
+    static std::string run_name;
 
     static double _run_time;
     static bool exiting;

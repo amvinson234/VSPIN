@@ -1,8 +1,9 @@
 #include "simulate.h"
 
-void Simulate::Start(double run_time)
+void Simulate::Start(std::string run, double run_time)
 {
     _run_time = run_time;
+    run_name = run;
     setup();
 
     while(!exiting)
@@ -74,7 +75,7 @@ void Simulate::setup()
     std::string name = planet_name;
     planet = Planet(name, M_plan, plan_radius, inputs);
 
-    std::string output_name = "output_" + planet_name + ".csv";
+    std::string output_name = "output_" + planet_name + run_name + ".csv";
 
     output.open(output_name.c_str());
     output << "time" << ',' << "gamma" << ',' << "g-dot" << ',' << "theta" << ',' << "theta-dot" << ',' << "mean-anomaly" << ','
@@ -90,3 +91,4 @@ std::ofstream Simulate::output;
 Planet Simulate::planet;
 double Simulate::last_printed_time = 0.0;
 double Simulate::dt_sampling = 0.0;
+std::string Simulate::run_name = "";
