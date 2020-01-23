@@ -25,6 +25,10 @@ public:
     double get_mean_motion();
     double get_semi_major();
 
+    double get_mean_anomaly();
+    double get_theta();
+    double get_theta_dot();
+
     double get_radius();
     double get_mass();
     double get_mu();
@@ -64,6 +68,8 @@ private:
 
     double gamma;
     double gamma_dot;
+
+    double mean_anom;
 
     double time;
     double time_step;

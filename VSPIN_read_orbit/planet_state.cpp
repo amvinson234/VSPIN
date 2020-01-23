@@ -137,6 +137,18 @@ double Planet::get_time()
 {
     return time;
 }
+double Planet::get_mean_anomaly()
+{
+    return mean_anom;
+}
+double Planet::get_theta()
+{
+    return gamma + mean_anom;
+}
+double Planet::get_theta_dot()
+{
+    return gamma_dot + mean_motion(this->get_time());
+}
 
 void Planet::read_orbit(std::string input_file_name)
 {
