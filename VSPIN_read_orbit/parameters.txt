@@ -1,2 +1,2 @@
 planet	gamma_0	gamma-dot_0	M_star	(B-A)/C		moi_coeff	tau_M	tau_A	mu			alpha	damping_on/off	atmosphere_on/off	driving_on/off
-e		0.0		10.0			0.08	1.0e-5		0.4			500.	500.	5.0e+10		0.2		1				1						1
+f		0.0		10.0			0.08	1.0e-5		0.4			500.	500.	5.0e+10		0.2		1				1						1
