@@ -43,6 +43,9 @@ public:
     double eccentricity(double t); //returns eccentricity at arbitrary time
     double omega_s(double t); //returns natural libration frequency, omega_s, at arbitrary time.
 
+    double get_damp(double t);
+    double get_atmospheric_damp();
+
     void solve(); //updates gamma and gamma_dot by performing integration. goes forward, adjusting time_step until convergence crit is reached, then stops.
 
 private:

@@ -54,7 +54,7 @@ void Planet::solve()
         double delta_gamma = gamma - gamma_b;
         double delta_gamma_dot = gamma_dot - gamma_dot_b;
 
-        if(std::abs(delta_gamma_dot) > std::abs((1.0e-9) * gamma_dot) && time_step > _min_dt) //convergence criterion not reached
+        if(std::abs(delta_gamma_dot) > std::abs((1.0e-8) * gamma_dot) && time_step > _min_dt) //convergence criterion not reached
         {
             time_step = time_step / 2.0;
             gamma = gamma_init;
@@ -88,9 +88,9 @@ double Planet::func_gdd(double t, double x, double x_dot)
     double driving;
     double damping;
 
-    if(atmosphere_on) atmosphere_damp = atmosphere->damp(this); else atmosphere_damp = 0;
+    if(atmosphere_on) atmosphere_damp = get_atmospheric_damp(); else atmosphere_damp = 0;
     if(driving_on) driving = mean_motion_dot(t); else driving = 0;
-    if(damping_on) damping = damp(this,t); else damping = 0;
+    if(damping_on) damping = get_damp(t); else damping = 0;
 
     mean_anom = std::fmod(mean_motion(t) * t, 2*PI);
     double true_anom = mean_anom + (2.0*eccentricity(t) - 1.0/4.0 * std::pow(eccentricity(t),3)) * std::sin(mean_anom)
@@ -98,7 +98,7 @@ double Planet::func_gdd(double t, double x, double x_dot)
                         + 13.0/12.0 * std::pow(eccentricity(t),3) * std::sin(3.0*mean_anom);
     double r = _semi_major * (1.0 -std::pow(eccentricity(t),2)) / (1.0 + eccentricity(t) * std::cos(true_anom));
     return -3.0/2.0 * mean_motion(t) * mean_motion(t) * _B_A_C * std::pow(_semi_major/r,3) * std::sin(2*x + 2*mean_anom - 2*true_anom)
-            + driving + (damping + atmosphere_damp) / _moi_coeff / _mass / _radius / _radius;
+            + driving + damping + atmosphere_damp;
 
 //    return -3.0/2.0 * mean_motion(t) * mean_motion(t) * _B_A_C * std::pow(_semi_major/r,3) * std::sin(2*x + 2* mean_motion(t) * t - 2*true_anom)
 //            + driving + (damping + atmosphere_damp) / _moi_coeff / _mass / _radius / _radius;

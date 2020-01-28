@@ -21,6 +21,7 @@ void Simulate::sim_loop()
         output << std::setprecision(8) << planet.get_time() << ',' << std::setprecision(6) << planet.get_gamma() << ',' << planet.get_gamma_dot()  << ','
             << planet.get_theta() << ',' << planet.get_theta_dot() << ',' << planet.get_mean_anomaly() << ','
             << planet.mean_motion(planet.get_time()) << ',' << planet.mean_motion_dot(planet.get_time()) << ',' << planet.eccentricity(planet.get_time())
+            //<< ',' << planet.get_damp(planet.get_time()) << ',' << planet.get_atmospheric_damp()
             << std::endl;
         last_printed_time = planet.get_time();
     }

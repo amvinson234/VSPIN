@@ -1,6 +1,7 @@
 #include "planet.h"
 #include "atmosphere.h"
 #include <cmath>
+#include "damp.h"
 
 Planet::Planet()
 {
@@ -192,4 +193,15 @@ void Planet::read_orbit(std::string input_file_name)
 
     spline_delta_t = (input_time[input_time.size()-1] - input_time[0]) / input_time.size();
 
+}
+
+double Planet::get_damp(double t)
+{
+
+    return damp(this,t) / _moi_coeff / _mass / _radius / _radius;
+}
+
+double Planet::get_atmospheric_damp()
+{
+    return atmosphere->damp(this) / _moi_coeff / _mass / _radius / _radius;
 }
