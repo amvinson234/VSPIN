@@ -79,7 +79,7 @@ double K_c(Planet *planet, double chi)
     double tau_M = planet->get_tau_M();
     double mu = planet->get_mu();
 
-    double lambda_2 = 4 * PI * (2 * 2 * 2 + 4 * 2 + 3) * std::pow(radius, 4) * mu / ( 3 * 2 * G SEC_PER_YEAR * SEC_PER_YEAR * M_plan *M_plan );
+    double lambda_2 = 4 * PI * (2 * 2 * 2 + 4 * 2 + 3) * std::pow(radius, 4) * mu / ( 3 * 2 * G * SEC_PER_YEAR * SEC_PER_YEAR * M_plan *M_plan );
     double real_part = chi + std::pow(chi,1 - alpha) * std::pow(tau_A, -alpha) * std::cos(alpha * PI / 2) * tgamma(1+alpha);
     double imaginary_part = - std::pow(tau_M,-1) - std::pow(chi,1-alpha) * std::pow(tau_A,-alpha) * std::sin(alpha*PI/2) * tgamma(1+alpha);
 

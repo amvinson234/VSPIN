@@ -1,6 +1,7 @@
 #include "planet.h"
 #include "atmosphere.h"
 #include <cmath>
+#include "damp.h"
 
 Planet::Planet()
 {
@@ -245,4 +246,15 @@ double Planet::get_tau_A()
 double Planet::get_time()
 {
     return time;
+}
+
+double Planet::get_damp(double t)
+{
+
+    return damp(this,t) / _moi_coeff / _mass / _radius / _radius;
+}
+
+double Planet::get_atmospheric_damp()
+{
+    return atmosphere->damp(this) / _moi_coeff / _mass / _radius / _radius;
 }
