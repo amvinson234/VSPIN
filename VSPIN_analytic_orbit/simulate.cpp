@@ -51,10 +51,26 @@ void Simulate::setup()
         orbit_inputs.push_back(input);
     }
 
+    /*******************************************************************************
+    *Uncomment the following if we want smooth variaton of a particular parameter     *
+    ********************************************************************************/
+
+    /*
+    int run_num_start = 1; //initial run number
+    int run_num = std::stoi(run_name); //current run number
+
+    int param_index = 4; //corresponds to which parameter we are varying
+
+    double delta_param = 0.000001; //change param value by this amount for each subsequent run
+    double start_param = inputs[param_index]; //start value of param for first run.
+
+    inputs[param_index] = start_param + (run_num - run_num_start) / delta_param; //change param in the inputs vector
+    */
+
 
     planet = Planet(inputs, orbit_inputs);
 
-    std::string output_name = "output.csv";
+    std::string output_name = "runs/output.csv";
 
     output.open(output_name.c_str());
     output << "time" << ',' << "gamma" << ',' << "g-dot" << ','
