@@ -11,7 +11,7 @@ int main()
     runID << std::getenv("SGE_TASK_ID");
     std::string run = runID.str();
 
-    Simulate::Start(run, 11000.);
+    Simulate::Start(run, 10000000.);
 
     return 0;
 }

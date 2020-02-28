@@ -78,7 +78,7 @@ void Simulate::setup()
         << ',' << "tidal_damp" << ',' << "atmospheric_damp" << std::endl;
 
 
-    dt_sampling = 2*PI / planet.mean_motion(0.0) / 2.0;
+    dt_sampling = 2*PI / planet.mean_motion(0.0) * 10;
 }
 
 double Simulate::_run_time = 0.0;
