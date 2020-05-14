@@ -64,7 +64,7 @@ void Simulate::setup()
     double delta_param = 0.000001; //change param value by this amount for each subsequent run
     double start_param = inputs[param_index]; //start value of param for first run.
 
-    inputs[param_index] = start_param + (run_num - run_num_start) / delta_param; //change param in the inputs vector
+    inputs[param_index] = start_param + (run_num - run_num_start) * delta_param; //change param in the inputs vector
     */
 
 
