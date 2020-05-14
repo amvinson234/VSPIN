@@ -1,2 +1,2 @@
 gamma_0	gamma-dot_0	M_star	(B-A)/C		moi_coeff	tau_M	tau_A	mu			alpha	damping_on/off	atmosphere_on/off	driving_on/off
-0.0		0.0			0.08	1.0e-5		0.4			500.	500.	8.0e+10		0.2		1				1						1
+0.0		10.0			0.416	1.0e-5		0.4			500.	500.	8.0e+10		0.2		1				1						1

@@ -74,7 +74,7 @@ void Planet::solve()
         delta_gamma = gamma - gamma_b;
         delta_gamma_dot = gamma_dot - gamma_dot_b;
 
-        if(std::abs(delta_gamma) > std::abs((1.0e-6) * gamma) && time_step > _min_dt) //convergence criterion not reached
+        if(std::abs(delta_gamma) > std::abs((1.0e-10) * gamma) && time_step > _min_dt) //convergence criterion not reached
         {
             time_step = time_step / 2.0;
             gamma = gamma_init;
@@ -125,6 +125,8 @@ double Planet::omega_s(double t)
 
 double Planet::mean_motion_dot(double t)
 {
+   // if(!driving_on) return 0.0;
+   // else
     return (-1.0 / _j2) * _omega_m * _omega_m * std::sin(phi);
 }
 
