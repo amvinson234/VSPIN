@@ -8,6 +8,10 @@
 double damp(Planet *planet, double t)
 //double damp(double M_star, double plan_radius, double semi_major, double ecc, double M_plan, double mean_motion, double gdot, double mu, double alpha, double tau_M, double tau_A)
 {
+    //comment out following two lines if want Efroimsky torque. uncomment if want old constant time lag torque.
+    //double epsilon = 3.0e-1;
+    //return -(planet->get_gamma_dot()) * epsilon * planet->omega_s(t) * planet->get_moi() * planet->get_mass() * planet->get_radius() * planet->get_radius();
+    
     double mean_motion = planet->mean_motion(t);
     double gdot = planet->get_gamma_dot();
     double ecc = planet->eccentricity(t);

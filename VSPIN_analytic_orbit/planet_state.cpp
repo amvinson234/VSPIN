@@ -43,18 +43,19 @@ Planet::Planet(std::vector<double> inputs, std::vector<double> orbit_inputs)
     phi_dot = orbit_inputs[9];
 
     //initialize to Earth values if other planet details not specified
-    _mean_motion = std::sqrt((_mass_star / MSUN) / std::pow(_semi_major/AEARTH,3));
-    std::cerr << "remember to generalize mean motion later!!!" << std::endl;
+    _mean_motion = 2*PI* std::sqrt((_mass_star / MSUN) / std::pow(_semi_major/AEARTH,3));
 
     omega_m();
 
     std::cerr << "omega_m: " <<  _omega_m << std::endl;
+    std::cerr << "omega_s: " << omega_s(0.0) << std::endl;
 
     time = 0.; //years
     time_step = 1.; //years
 
+    //_min_dt = 2*PI/mean_motion(0)/128.0;
     _min_dt = 0.0;
-    _max_dt = 2*PI / _mean_motion * 64.0;
+    _max_dt = INFINITY;
 
     atmosphere = new Atmosphere(this);
 }
@@ -242,6 +243,10 @@ double Planet::get_tau_M()
 double Planet::get_tau_A()
 {
     return _tau_A;
+}
+double Planet::get_moi()
+{
+    return _moi_coeff;
 }
 double Planet::get_time()
 {

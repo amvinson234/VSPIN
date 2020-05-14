@@ -74,7 +74,7 @@ void Planet::solve()
         delta_gamma = gamma - gamma_b;
         delta_gamma_dot = gamma_dot - gamma_dot_b;
 
-        if(std::abs(delta_gamma) > std::abs((1.0e-10) * gamma) && time_step > _min_dt) //convergence criterion not reached
+        if(std::abs(delta_gamma) > std::abs((1.0e-8) * gamma) && time_step > _min_dt) //convergence criterion not reached
         {
             time_step = time_step / 2.0;
             gamma = gamma_init;
@@ -114,6 +114,9 @@ double Planet::func_gdd(double t, double x, double x_dot)
     if(driving_on) driving = mean_motion_dot(t); else driving = 0;
     if(damping_on) damping = damp(this,t); else damping = 0;
 
+    //damping = - 0.3 * omega_s(0.0) * gamma_dot * _moi_coeff * _mass * _radius * _radius;
+    //damping = - gamma_dot * 0.0000015 * omega_s(0.0) * _moi_coeff * _mass * _radius * _radius; //normalize to omega_s
+
     return -1/2. * omega_s(t) * omega_s(t) * std::sin(2*x) - driving + (damping + atmosphere_damp) / _moi_coeff / _mass / _radius / _radius; //x and x_dot represent gamma and gamma_dot, respectively
 }
 
@@ -125,9 +128,9 @@ double Planet::omega_s(double t)
 
 double Planet::mean_motion_dot(double t)
 {
-   // if(!driving_on) return 0.0;
-   // else
+    if(driving_on)
     return (-1.0 / _j2) * _omega_m * _omega_m * std::sin(phi);
+    else return 0.0;
 }
 
 
@@ -152,7 +155,7 @@ std::pair<double,double> Planet::integrate_phi(double t, double h, double y, dou
 
 double Planet::func_phi(double t, double x, double x_dot)
 {
-    return -1.0/_j2 * _omega_m * _omega_m * std::sin(x); //x and x_dot represent gamma and gamma_dot, respectively
+    return -1.0 * _omega_m * _omega_m * std::sin(x); //x and x_dot represent gamma and gamma_dot, respectively
 }
 
 

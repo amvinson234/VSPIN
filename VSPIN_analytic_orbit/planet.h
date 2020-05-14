@@ -35,6 +35,7 @@ public:
     double get_tau_A();
     double get_time();
     double get_stellar_mass();
+    double get_moi();
 
     double get_semi_major_sec();
     double get_mass_sec();
