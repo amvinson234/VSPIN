@@ -13,8 +13,10 @@ Atmosphere::Atmosphere(Planet *planet)
     K_a = 3 * planet->get_stellar_mass() * std::pow(planet->get_radius(), 3) / (5.0 * _mean_density * std::pow(planet->get_semi_major(), 3));
 
     //following values inspired from Table 1 of Leconte et al. 2015
-    _q_0 = SEC_PER_YEAR * SEC_PER_YEAR * 1000.0;
-    _omega_0 = 71.0;
+    //q_0 = 1000, omega_0 = 71 for 1 bar N2 atmosphere in inner hab zone
+    //q_0 = 3000, omega_0 = 22 for 10 bar N2 atmosphere in outer hab zone
+    _q_0 = SEC_PER_YEAR * SEC_PER_YEAR * 3000.0; // 1000.0;
+    _omega_0 = 22.0; //71.0;
 }
 
 Atmosphere::Atmosphere(Planet *planet, double q_0, double omega_0)

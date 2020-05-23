@@ -1,2 +1,2 @@
 j1	j2	semi-major(AU)	semi-major_sec	mass(M_Earth)	mass_sec	eccentricity	Radius(R_Earth)	phi_0	phi_dot_0
-7	3	0.163			0.0925			1.5				6			0.05				1.19			0.0		0.3
+7	3	0.163			0.0925			1.5				7.5			0.04				1.19			1.0		0.0
